@@ -9,16 +9,38 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { ButtonGroup } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 
-const NavBar = () => {
+const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+    const navBarLoggedIn = () => {
+        return (
+            <>
+                <Button color="inherit" onClick={ () => logoutUser() }><Link to="/">Logout</Link></Button>
+                <Avatar>{ currentUser.first_name[0] + currentUser.last_name[0]}</Avatar>
+            </>
+        )
+    }
+
+    const navBarLoggedOut = () => {
+        return (
+            <ButtonGroup>
+                <Button color="inherit"><Link to="/signup">Sign Up</Link></Button>
+                <Button color="inherit"><Link to="/login">Login</Link></Button>
+            </ButtonGroup>
+        )
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -52,8 +74,7 @@ const NavBar = () => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Club House
                     </Typography>
-                    <Button color="inherit"><Link to="/signup">Sign Up</Link></Button>
-                    <Button color="inherit"><Link to="/login">Login</Link></Button>
+                    { loggedIn ? navBarLoggedIn() : navBarLoggedOut() }
                 </Toolbar>
             </AppBar>
         </Box>
