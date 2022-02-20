@@ -1,8 +1,12 @@
 import React from 'react'
+import ClubListItem from './ClubListItem'
 
-const ClubList = () => {
+const ClubList = ({ clubs }) => {
+
+  const renderClubs = clubs.map(club => <ClubListItem key={ club.id } club={ club } />)
+
   return (
-    <div>ClubList</div>
+    <div>{ renderClubs }</div>
   )
 }
 
