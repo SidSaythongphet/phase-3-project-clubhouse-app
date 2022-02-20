@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from "./components/static_components/NavBar";
 import Home from "./components/static_components/Home";
@@ -10,15 +10,57 @@ import ClubPage from "./components/club_components/ClubPage";
 import EventList from "./components/event_components/EventList";
 
 const App = () => {
+  const [users, setUsers] = useState([])
+  const [currentUser, setCurrentUser] = useState('')
+  const [loggedIn, setLoggedIn] = useState(false)
+
+  const [clubs, setClubs] = useState([])
+
+  useEffect(() => {
+    fetch('/users')
+      .then(resp => resp.json())
+      .then(userData => setUsers(userData))
+  }, [currentUser])
+
+  useEffect(() => {
+    fetch('/clubs')
+      .then(resp => resp.json())
+      .then(clubData => setClubs(clubData))
+  }, [])
+
+  useEffect(() => {
+    const userId = localStorage.getItem('user_id')
+    if(userId && !loggedIn) {
+      fetch(`/users/${userId}`)
+        .then(resp => resp.json())
+        .then(user => {
+          loginUser(user)
+        })
+      }
+    },[loggedIn])
+    console.log(currentUser)
+
+    const loginUser = (user) => {
+      setCurrentUser(user)
+      setLoggedIn(true)
+      localStorage.setItem('user_id', user.id)
+    }
+  
+    const logoutUser = () => {
+      setCurrentUser('')
+      setLoggedIn(false)
+      localStorage.removeItem('user_id')
+    }
+
   return (
     <Router>
-      <NavBar />
+      <NavBar loggedIn={ loggedIn } logoutUser={ logoutUser } currentUser={ currentUser } />
       <Routes>
-        <Route path="/" element={ <Home /> } />
-        <Route path="/signup" element={ <SignUp /> } />
-        <Route path="/login" element={ <Login /> } />
-        <Route path="/createclub" element={ <CreateClub /> } />
-        <Route path="/clublist" element={ <ClubList /> } />
+        <Route path="/" element={ <Home loggedIn={ loggedIn } currentUser={ currentUser } /> } />
+        <Route path="/signup" element={ <SignUp loginUser={ loginUser } users={ users } /> } />
+        <Route path="/login" element={ <Login loginUser={ loginUser } users={ users } /> } />
+        <Route path="/createclub" element={ <CreateClub currentUser={ currentUser } /> } />
+        <Route path="/clublist" element={ <ClubList clubs={ clubs }/> } />
         <Route path="/club" element={ <ClubPage /> } />
         <Route path="/club/events" element={ <EventList /> } />
       </Routes>
