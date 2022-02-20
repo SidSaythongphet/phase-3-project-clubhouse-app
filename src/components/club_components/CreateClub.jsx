@@ -4,16 +4,17 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
-const CreateClub = ({ currentUser }) => {
+const CreateClub = ({ currentUser, onAddClub, onUpdateUser }) => {
     const [formData, setFormData] = useState({
         club_title: '',
         description: '',
         admin: currentUser.id
     })
+    const navigate = useNavigate()
     
     const handleChange = (e) => {
-      console.log(formData)
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -21,20 +22,22 @@ const CreateClub = ({ currentUser }) => {
     }
 
     const handleClick = (e) => {
-      e.preventDefault()
+        e.preventDefault()
 
-          fetch(`/clubs`, {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-                  "Accept": "application/json"
-              },
-              body: JSON.stringify(formData)
-          })
-              .then(resp => resp.json())
-              .then(newClub => {
-                console.log(newClub)
-              })
+        fetch(`/clubs`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(resp => resp.json())
+            .then(newClub => {
+                onAddClub(newClub)
+                onUpdateUser()
+            })
+        navigate('/club')
     }
 
     return (

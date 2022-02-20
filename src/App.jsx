@@ -37,8 +37,7 @@ const App = () => {
           loginUser(user)
         })
       }
-    },[loggedIn])
-    console.log(currentUser)
+    }, [loggedIn])
 
     const loginUser = (user) => {
       setCurrentUser(user)
@@ -52,6 +51,19 @@ const App = () => {
       localStorage.removeItem('user_id')
     }
 
+    const handleAddClub = (newClub) => {
+      setClubs([...clubs, newClub])
+    }
+
+    const updateCurrentUser = () => {
+      const userId = localStorage.getItem('user_id')
+      fetch(`/users/${userId}`)
+        .then(resp => resp.json())
+        .then(user => {
+          setCurrentUser(user)
+        })
+    }
+
   return (
     <Router>
       <NavBar loggedIn={ loggedIn } logoutUser={ logoutUser } currentUser={ currentUser } />
@@ -59,7 +71,7 @@ const App = () => {
         <Route path="/" element={ <Home loggedIn={ loggedIn } currentUser={ currentUser } /> } />
         <Route path="/signup" element={ <SignUp loginUser={ loginUser } users={ users } /> } />
         <Route path="/login" element={ <Login loginUser={ loginUser } users={ users } /> } />
-        <Route path="/createclub" element={ <CreateClub currentUser={ currentUser } /> } />
+        <Route path="/createclub" element={ <CreateClub currentUser={ currentUser } onAddClub={ handleAddClub } onUpdateUser={ updateCurrentUser }/> } />
         <Route path="/clublist" element={ <ClubList clubs={ clubs }/> } />
         <Route path="/club" element={ <ClubPage /> } />
         <Route path="/club/events" element={ <EventList /> } />
