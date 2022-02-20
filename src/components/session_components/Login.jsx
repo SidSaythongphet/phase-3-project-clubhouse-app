@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
 
-const Login = ({ loginUser, users }) => {
+const Login = ({ loginUser, users, currentUser }) => {
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -26,7 +26,7 @@ const Login = ({ loginUser, users }) => {
       const user = users.find(user => user.username.toLowerCase() === formData.username.toLowerCase())
       if (user && user.password === formData.password) {
         loginUser(user)
-        navigate('/')
+        navigate(`/home/ + ${currentUser.last_name} + "_" + ${currentUser.id}`)
       } else {
         alert('Invalid credentials')
       }

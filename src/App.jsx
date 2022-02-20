@@ -8,6 +8,7 @@ import CreateClub from "./components/club_components/CreateClub";
 import ClubList from "./components/club_components/ClubList";
 import ClubPage from "./components/club_components/ClubPage";
 import EventList from "./components/event_components/EventList";
+import UserHomePage from "./components/session_components/UserHomePage";
 
 const App = () => {
   const [users, setUsers] = useState([])
@@ -69,8 +70,9 @@ const App = () => {
       <NavBar loggedIn={ loggedIn } logoutUser={ logoutUser } currentUser={ currentUser } />
       <Routes>
         <Route path="/" element={ <Home loggedIn={ loggedIn } currentUser={ currentUser } /> } />
+        <Route path="/home/:last_name:id" element={ <UserHomePage loggedIn={ loggedIn } currentUser={ currentUser } /> } />
         <Route path="/signup" element={ <SignUp loginUser={ loginUser } users={ users } /> } />
-        <Route path="/login" element={ <Login loginUser={ loginUser } users={ users } /> } />
+        <Route path="/login" element={ <Login loginUser={ loginUser } users={ users } currentUser={ currentUser }/> } />
         <Route path="/createclub" element={ <CreateClub currentUser={ currentUser } onAddClub={ handleAddClub } onUpdateUser={ updateCurrentUser }/> } />
         <Route path="/clublist" element={ <ClubList clubs={ clubs }/> } />
         <Route path="/club" element={ <ClubPage /> } />
