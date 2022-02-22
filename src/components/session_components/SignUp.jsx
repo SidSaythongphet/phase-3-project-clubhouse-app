@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
-const SignUp = ({ users, loginUser }) => {
+const SignUp = ({ users, loginUser, onAddUser }) => {
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
         first_name: '',
@@ -39,6 +39,7 @@ const SignUp = ({ users, loginUser }) => {
           })
               .then(resp => resp.json())
               .then(newUser => {
+                onAddUser(newUser)
                 loginUser(newUser)
                 navigate('/')
               })

@@ -9,24 +9,49 @@ import ClubList from "./components/club_components/ClubList";
 import ClubPage from "./components/club_components/ClubPage";
 import EventList from "./components/event_components/EventList";
 import UserHomePage from "./components/session_components/UserHomePage";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+          light: '#00d4ff',
+          main: '#094f79',
+          dark: '#020024',
+        },
+        secondary: {
+          light: '#ffdd72',
+          main: '#ffd54f',
+          dark: '#b29537',
+        }
+    },
+    typography: {
+      fontFamily: 'Manrope',
+      fontWeightLight: 300,
+      fontWeightRegular: 400,
+      fontWeightMedium: 500,
+      fontWeightBold: 700
+    }
+})
 
 const App = () => {
   const [users, setUsers] = useState([])
   const [currentUser, setCurrentUser] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
 
-  const [clubs, setClubs] = useState([])
+  const [allClubs, setAllClubs] = useState([])
+  const [usersClubs, setUsersClubs] = useState([])
+  const [clubPage, setClubPage] = useState('')
 
   useEffect(() => {
     fetch('/users')
       .then(resp => resp.json())
       .then(userData => setUsers(userData))
-  }, [currentUser])
+  }, [])
 
   useEffect(() => {
     fetch('/clubs')
       .then(resp => resp.json())
-      .then(clubData => setClubs(clubData))
+      .then(clubData => setAllClubs(clubData))
   }, [])
 
   useEffect(() => {
@@ -39,6 +64,11 @@ const App = () => {
         })
       }
     }, [loggedIn])
+    
+    useEffect(() =>{
+      const c = allClubs.filter(all => currentUser.clubs.some(club => all.id == club.id))
+      setUsersClubs(c)
+    }, [currentUser])
 
     const loginUser = (user) => {
       setCurrentUser(user)
@@ -52,33 +82,34 @@ const App = () => {
       localStorage.removeItem('user_id')
     }
 
+    const handleAddUser = (newUser) => {
+      setUsers([...users, newUser])
+    }
+
     const handleAddClub = (newClub) => {
-      setClubs([...clubs, newClub])
+      setAllClubs([...allClubs, newClub])
     }
 
-    const updateCurrentUser = () => {
-      const userId = localStorage.getItem('user_id')
-      fetch(`/users/${userId}`)
-        .then(resp => resp.json())
-        .then(user => {
-          setCurrentUser(user)
-        })
+    const currentClub = (club) => {
+      setClubPage(club)
     }
-
+   
   return (
-    <Router>
-      <NavBar loggedIn={ loggedIn } logoutUser={ logoutUser } currentUser={ currentUser } />
-      <Routes>
-        <Route path="/" element={ <Home loggedIn={ loggedIn } currentUser={ currentUser } /> } />
-        <Route path="/home/:last_name:id" element={ <UserHomePage loggedIn={ loggedIn } currentUser={ currentUser } /> } />
-        <Route path="/signup" element={ <SignUp loginUser={ loginUser } users={ users } /> } />
-        <Route path="/login" element={ <Login loginUser={ loginUser } users={ users } currentUser={ currentUser }/> } />
-        <Route path="/createclub" element={ <CreateClub currentUser={ currentUser } onAddClub={ handleAddClub } onUpdateUser={ updateCurrentUser }/> } />
-        <Route path="/clublist" element={ <ClubList clubs={ clubs }/> } />
-        <Route path="/club" element={ <ClubPage /> } />
-        <Route path="/club/events" element={ <EventList /> } />
-      </Routes>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <NavBar loggedIn={ loggedIn } logoutUser={ logoutUser } currentUser={ currentUser } />
+        <Routes>
+          <Route path="/" element={ <Home loggedIn={ loggedIn } currentUser={ currentUser } /> } />
+          <Route path="/home/:last_name:id" element={ <UserHomePage loggedIn={ loggedIn } currentUser={ currentUser } currentClub={ currentClub } usersClubs={ usersClubs } /> } />
+          <Route path="/signup" element={ <SignUp loginUser={ loginUser } users={ users } onAddUser={ handleAddUser} /> } />
+          <Route path="/login" element={ <Login loginUser={ loginUser } users={ users } currentUser={ currentUser }/> } />
+          <Route path="/createclub" element={ <CreateClub currentUser={ currentUser } onAddClub={ handleAddClub } /> } />
+          <Route path="/clublist" element={ <ClubList clubs={ allClubs } currentClub={ currentClub }/> } />
+          <Route path="/club/:club_title" element={ <ClubPage club={ clubPage }/> } />
+          <Route path="/club/events" element={ <EventList /> } />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 

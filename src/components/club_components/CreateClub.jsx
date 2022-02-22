@@ -6,11 +6,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
-const CreateClub = ({ currentUser, onAddClub, onUpdateUser }) => {
+const CreateClub = ({ onAddClub }) => {
     const [formData, setFormData] = useState({
         club_title: '',
         description: '',
-        admin: currentUser.id
+        admin: localStorage.user_id
     })
     const navigate = useNavigate()
     
@@ -35,7 +35,6 @@ const CreateClub = ({ currentUser, onAddClub, onUpdateUser }) => {
             .then(resp => resp.json())
             .then(newClub => {
                 onAddClub(newClub)
-                onUpdateUser()
             })
         navigate('/club')
     }
