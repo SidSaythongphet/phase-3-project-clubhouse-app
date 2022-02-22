@@ -12,6 +12,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { ButtonGroup } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
+import StyledButton from '../../styled_components/StyledButton';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -33,7 +35,6 @@ const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
             <>
                 <IconButton
                     size="large"
-                    edge="start"
                     color="inherit"
                     aria-label="menu"
                     sx={{ mr: 2 }}
@@ -50,17 +51,16 @@ const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
                     'aria-labelledby': 'basic-button',
                     }}
                 >
-                    <MenuItem onClick={handleClose}><Link to={ "/home/" + last_name + "_" + id  }>Home</Link></MenuItem>
-                    <MenuItem onClick={handleClose}><Link to="/createclub">Create Club</Link></MenuItem>
-                    <MenuItem onClick={handleClose}><Link to="/club">Club</Link></MenuItem>
-                    <MenuItem onClick={handleClose}><Link to="/clublist">Club List</Link></MenuItem>
-                    <MenuItem onClick={handleClose}><Link to="/club/events">Club Events</Link></MenuItem>
+                    <MenuItem onClick={handleClose}><Link to={ "/home/" + last_name + "_" + id  } style={{ textDecoration: "none" }}>Home</Link></MenuItem>
+                    <MenuItem onClick={handleClose}><Link to="/createclub" style={{ textDecoration: "none" }}>Create Club</Link></MenuItem>
+                    <MenuItem onClick={handleClose}><Link to="/clublist" style={{ textDecoration: "none" }}>Club List</Link></MenuItem>
+                    <MenuItem onClick={handleClose}><Link to="/club/events" style={{ textDecoration: "none" }}>Club Events</Link></MenuItem>
                 </Menu>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
                     Club House
                 </Typography>
-                <Button color="inherit" onClick={ () => logoutUser() }><Link to="/">Logout</Link></Button>
-                <Avatar>{ first_name[0] + last_name[0]}</Avatar>
+                <StyledButton href="/" size='small' icon={ <LogoutIcon/> } text='Logout' onClick={ () => logoutUser() } />
+                <Avatar onClick={ () => navigate(`/home/${last_name}_${id}`) } >{ first_name[0] + last_name[0]}</Avatar>
             </>
         )
     }
@@ -70,7 +70,6 @@ const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
             <>
                 <IconButton
                     size="large"
-                    edge="start"
                     color="inherit"
                     aria-label="menu"
                     sx={{ mr: 2 }}
@@ -78,62 +77,32 @@ const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
                 >
                     <HomeIcon />
                 </IconButton>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
                     Club House
                 </Typography>
                 <ButtonGroup>
-                    <Button color="inherit"><Link to="/signup">Sign Up</Link></Button>
-                    <Button color="inherit"><Link to="/login">Login</Link></Button>
+                    <Button ><Link to="/signup" style={{ textDecoration: "none" }}>Sign Up</Link></Button>
+                    <Button ><Link to="/login" style={{ textDecoration: "none" }}>Login</Link></Button>
                 </ButtonGroup>
             </>
         )
     }
 
-    const navMenuLoggedIn = () => {
-        return (
-            <>
-                <MenuItem onClick={handleClose}><Link to={"/home/" + last_name + "_" + id  }>Home</Link></MenuItem>
-                <MenuItem onClick={handleClose}><Link to="/createclub">Create Club</Link></MenuItem>
-                <MenuItem onClick={handleClose}><Link to="/club">Club</Link></MenuItem>
-                <MenuItem onClick={handleClose}><Link to="/clublist">Club List</Link></MenuItem>
-                <MenuItem onClick={handleClose}><Link to="/club/events">Club Events</Link></MenuItem>
-            </>
-        )
-    }
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+        <Box 
+            sx={{ flexGrow: 1 }}
+            style={{
+                margin: '10px 0 100px',
+            }}
+        >
+            <AppBar 
+                position="static"
+                style={{
+                    background: 'linear-gradient(100deg, rgba(2,0,36,1) 0%, rgba(9,79,121,0.7511379551820728) 35%, rgba(0,212,255,1) 100%)'
+                }}
+            >
                 <Toolbar>
-                    {/* <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                        onClick={handleClick}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                        }}
-                    >
-                        <MenuItem onClick={handleClose}><Link to="/">Home</Link></MenuItem>
-                        <MenuItem onClick={handleClose}><Link to={"/home/" + last_name + "_" + id  }>Home</Link></MenuItem>
-                        <MenuItem onClick={handleClose}><Link to="/createclub">Create Club</Link></MenuItem>
-                        <MenuItem onClick={handleClose}><Link to="/club">Club</Link></MenuItem>
-                        <MenuItem onClick={handleClose}><Link to="/clublist">Club List</Link></MenuItem>
-                        <MenuItem onClick={handleClose}><Link to="/club/events">Club Events</Link></MenuItem>
-                    </Menu>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Club House
-                    </Typography> */}
                     { loggedIn ? navBarLoggedIn() : navBarLoggedOut() }
                 </Toolbar>
             </AppBar>
