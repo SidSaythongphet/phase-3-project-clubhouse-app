@@ -41,7 +41,7 @@ const SignUp = ({ users, loginUser, onAddUser }) => {
               .then(newUser => {
                 onAddUser(newUser)
                 loginUser(newUser)
-                navigate('/')
+                navigate(`/clublist`)
               })
       }
   }
