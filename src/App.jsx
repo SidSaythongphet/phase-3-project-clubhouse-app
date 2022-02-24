@@ -105,7 +105,7 @@ const App = () => {
           <Route path="/login" element={ <Login loginUser={ loginUser } users={ users } currentUser={ currentUser }/> } />
           <Route path="/createclub" element={ <CreateClub currentUser={ currentUser } onAddClub={ handleAddClub } /> } />
           <Route path="/clublist" element={ <ClubList clubs={ allClubs } /> } />
-          <Route path="/club/:club_title" element={ <ClubPage onJoinClub={ handleJoinClub } usersClubs={ usersClubs } /> } />
+          <Route path="/club/:club_title" element={ <ClubPage onJoinClub={ handleJoinClub } currentUser={ currentUser } /> } />
           <Route path="/club/events" element={ <EventList /> } />
         </Routes>
       </Router>

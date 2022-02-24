@@ -1,16 +1,24 @@
-import { Button, Container, Grid, Paper, Typography } from '@mui/material'
+import { Button, Container, Grid, Paper, Typography, Tooltip, Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import EventList from '../event_components/EventList';
+import PostContainer from '../post_component/PostContainer';
 
-const ClubPage = ({ onJoinClub }) => {
+
+const ClubPage = ({ onJoinClub, currentUser }) => {
   const [club, setClubPage] = useState([])
   const [members, setMembers] = useState([])
   const [events, setEvents] = useState([])
   const { club_title, description } = club
   
-  const memberAvatar = members.map(member => <Avatar key={ member.id }>{ member.first_name[0] + member.last_name[0]}</Avatar>)
+  const memberAvatar = members.map(member => {
+    return (
+      <Tooltip key={ member.id } title={ member.first_name + ' ' + member.last_name} >
+        <Avatar >{ member.first_name[0] + member.last_name[0]}</Avatar>
+      </Tooltip>
+    )
+  })
   const existingMember = members.map(member => member.id).includes(parseInt(localStorage.user_id))
 
   useEffect(() => {
@@ -41,6 +49,7 @@ const ClubPage = ({ onJoinClub }) => {
       .then(resp => resp.json())
       .then(() => {
         onJoinClub(club)
+        setMembers([...members, currentUser])
       })
   }
 
@@ -54,25 +63,28 @@ const ClubPage = ({ onJoinClub }) => {
         ?
         <Typography>Loading</Typography>
         :
-        <Grid container spacing={3} direction='column'>
-          <Grid item>
-            <Paper>
-              <Typography>{ club_title }</Typography>
-              { members.length > 1 ? <Typography>{ members.length } Members</Typography> : <Typography>{ members.length } Member</Typography> }
-              <AvatarGroup max={5}>
-                { memberAvatar }
-              </AvatarGroup>
-              <Typography>Description</Typography>
-              <Typography>{ description }</Typography>
-              { !existingMember ? <Button onClick={handleJoin}>Join</Button> : <Button>Leave</Button> }
-            </Paper>
-          </Grid>
-          <Grid item>
-            <Paper>
+        <Grid container spacing={3} display='flex' flexDirection='row'>
+          <Grid item xs={12}>
+            <Box sx={{ width: '100%', bgcolor: 'background.paper', borderRadius:'5px' }}>
               <Container>
-                { existingMember ? <EventList club_id={ club.id } events={ events } onAddEvent={ handleAddEvent }/> : false }
+                <Typography>{ club_title }</Typography>
+                { members.length > 1 ? <Typography>{ members.length } Members</Typography> : <Typography>{ members.length } Member</Typography> }
+                <AvatarGroup max={5}>
+                  { memberAvatar }
+                </AvatarGroup>
+                <Typography>Description</Typography>
+                <Typography>{ description }</Typography>
+                { !existingMember ? <Button onClick={ handleJoin }>Join</Button> : <Button>Leave</Button> }
               </Container>
-            </Paper>
+            </Box>
+          </Grid>
+          <Grid item xs={12} container spacing={3}>
+            <Grid item xs={4}>
+                <EventList club_id={ club.id } events={ events } onAddEvent={ handleAddEvent }/>
+            </Grid>
+            <Grid item xs={8} container spacing={2} direction='column'>
+                <PostContainer currentUser={ currentUser }/>    
+            </Grid>
           </Grid>
         </Grid>
       }
