@@ -40,7 +40,6 @@ const App = () => {
 
   const [allClubs, setAllClubs] = useState([])
   const [usersClubs, setUsersClubs] = useState([])
-  const [clubPage, setClubPage] = useState('')
 
   useEffect(() => {
     fetch('/users')
@@ -65,10 +64,11 @@ const App = () => {
       }
     }, [loggedIn])
     
-    useEffect(() =>{
-      const c = allClubs.filter(all => currentUser.clubs.some(club => all.id == club.id))
-      setUsersClubs(c)
-    }, [currentUser])
+  useEffect(() =>{
+    fetch(`/users/${currentUser.id}/clubs`)
+      .then(resp => resp.json())
+      .then(clubData => setUsersClubs(clubData))
+  }, [loggedIn])
 
     const loginUser = (user) => {
       setCurrentUser(user)
@@ -90,22 +90,22 @@ const App = () => {
       setAllClubs([...allClubs, newClub])
     }
 
-    const currentClub = (club) => {
-      setClubPage(club)
+    const handleJoinClub = (newClub) => {
+      setUsersClubs([...usersClubs, newClub])
     }
-   
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <NavBar loggedIn={ loggedIn } logoutUser={ logoutUser } currentUser={ currentUser } />
         <Routes>
           <Route path="/" element={ <Home loggedIn={ loggedIn } currentUser={ currentUser } /> } />
-          <Route path="/home/:last_name:id" element={ <UserHomePage loggedIn={ loggedIn } currentUser={ currentUser } currentClub={ currentClub } usersClubs={ usersClubs } /> } />
+          <Route path="/home/:last_name:id" element={ <UserHomePage loggedIn={ loggedIn } currentUser={ currentUser } usersClubs={ usersClubs } setLoggedIn={ setLoggedIn }  /> } />
           <Route path="/signup" element={ <SignUp loginUser={ loginUser } users={ users } onAddUser={ handleAddUser} /> } />
           <Route path="/login" element={ <Login loginUser={ loginUser } users={ users } currentUser={ currentUser }/> } />
           <Route path="/createclub" element={ <CreateClub currentUser={ currentUser } onAddClub={ handleAddClub } /> } />
-          <Route path="/clublist" element={ <ClubList clubs={ allClubs } currentClub={ currentClub }/> } />
-          <Route path="/club/:club_title" element={ <ClubPage club={ clubPage }/> } />
+          <Route path="/clublist" element={ <ClubList clubs={ allClubs } /> } />
+          <Route path="/club/:club_title" element={ <ClubPage onJoinClub={ handleJoinClub } usersClubs={ usersClubs } /> } />
           <Route path="/club/events" element={ <EventList /> } />
         </Routes>
       </Router>
