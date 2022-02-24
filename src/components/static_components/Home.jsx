@@ -2,11 +2,9 @@ import React from 'react';
 import { Typography, Grid, Card, CardMedia } from '@mui/material';
 
 const Home = () => {
-  
-
   return (
-    <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
-      <Grid item>
+    <Grid container spacing={2} direction="row" justifyContent="center" alignItems="stretch">
+      <Grid item >
         <Card sx={{ maxWidth: 400 }}>
           <CardMedia
             component="img"
@@ -15,11 +13,10 @@ const Home = () => {
             alt="paint photo"
           />
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            Join a Club
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            Create or search through existing clubs to find a group of people that are interested in the things you are!
           </Typography>
         </Card>
       </Grid>
@@ -32,11 +29,10 @@ const Home = () => {
             alt="books"
           />
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            Chat with Friends
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            Connect with your friends!
           </Typography>
         </Card>
       </Grid>
@@ -50,11 +46,10 @@ const Home = () => {
 
           />
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            See Upcoming Events
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            Events can be created for clubs to indicate future meetings and their objectives.
           </Typography>
         </Card>
       </Grid>

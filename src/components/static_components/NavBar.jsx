@@ -4,16 +4,15 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { ButtonGroup } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import StyledButton from '../../styled_components/StyledButton';
 import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
 
 const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -80,10 +79,8 @@ const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
                 <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
                     Club House
                 </Typography>
-                <ButtonGroup>
-                    <Button ><Link to="/signup" style={{ textDecoration: "none" }}>Sign Up</Link></Button>
-                    <Button ><Link to="/login" style={{ textDecoration: "none" }}>Login</Link></Button>
-                </ButtonGroup>
+                <StyledButton href="/signup" size='small' text='Sign Up' />
+                <StyledButton href="/login" size='small' text='Login' icon={ <LoginIcon/> }/>
             </>
         )
     }
@@ -99,7 +96,7 @@ const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
             <AppBar 
                 position="static"
                 style={{
-                    background: 'linear-gradient(100deg, rgba(2,0,36,1) 0%, rgba(9,79,121,0.7511379551820728) 35%, rgba(0,212,255,1) 100%)'
+                    background: 'linear-gradient(100deg, rgba(2,0,36,1) 0%, rgba(9,79,121,1) 50%, rgba(58,124,138,1) 100%)'
                 }}
             >
                 <Toolbar>
