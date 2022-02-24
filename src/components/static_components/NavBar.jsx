@@ -94,7 +94,7 @@ const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
             }}
         >
             <AppBar 
-                position="static"
+                position="fixed"
                 style={{
                     background: 'linear-gradient(100deg, rgba(2,0,36,1) 0%, rgba(9,79,121,1) 50%, rgba(58,124,138,1) 100%)'
                 }}
