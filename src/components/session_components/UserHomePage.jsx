@@ -1,34 +1,20 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Box, Grid, Typography } from '@mui/material';
 import { Avatar } from '@mui/material';
-import StyledButton from '../../styled_components/StyledButton';
-import DeleteIcon from '@mui/icons-material/Delete';
 import ClubList from '../club_components/ClubList';
 import UpdateForm from './UpdateForm';
+import DeleteAccountItem from './DeleteAccountItem';
 
 
 const UserHomePage = ({ currentUser, usersClubs, setLoggedIn }) => {
     const { first_name, last_name, username } = currentUser
     const [userDisplay, setUserDisplay] = useState(username)
-    const navigate = useNavigate()
+
 
     const onUpdate = (updatedUser) => {
       setUserDisplay(updatedUser.username)
     }
 
-    const handleDelete = () => {
-      fetch(`/users/${currentUser.id}`, {
-        method: "DELETE"
-      })
-        .then(resp => resp.json())
-        .then(() => {
-          navigate(`/`)
-          setLoggedIn(false)
-          localStorage.removeItem('user_id')
-        })
-    }
-    
     return (
       <>
         {
@@ -72,7 +58,7 @@ const UserHomePage = ({ currentUser, usersClubs, setLoggedIn }) => {
                     </Grid>
                     <Grid item>
                       <UpdateForm currentUser={ currentUser } onUpdate={ onUpdate }/>
-                      <StyledButton icon={ <DeleteIcon/> } color='secondary' text='Delete Account' onClick={ handleDelete }/>
+                      <DeleteAccountItem setLoggedIn={ setLoggedIn }/>
                     </Grid>
                   </Grid>
                 </Box>
