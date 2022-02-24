@@ -17,7 +17,8 @@ const PostContainer = () => {
               setPosts(posts)
             })
         }
-    }, [posts])
+
+    }, [])
 
     const handleNewPost = (newPost) => {
         setPosts([...posts, newPost])

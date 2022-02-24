@@ -44,32 +44,32 @@ const PostForm = ({ handleNewPost }) => {
 
     return (
         <Box style={{padding: '10px'}} >
-            <Grid container justifyContent="flex-end">
-                <Grid item>                    
-                    <StyledButton text={ !expanded ? "Comment" : "Close"} icon={ <ExpandMoreIcon /> } onClick={handleExpandClick} size="small" />
+            <Grid container spacing={2} justifyContent="space-between">
+                <Grid item xs={1}>                    
+                    <StyledButton size="small" text={ !expanded ? "Comment" : "Close"} icon={ <ExpandMoreIcon /> } onClick={handleExpandClick} />
+                </Grid>
+                <Grid item xs={10}>                    
+                    <Collapse in={expanded} timeout="auto" unmountOnExit>
+                        <Grid container display="flex" justifyContent="flex-start" alignItems="flex-end">
+                            <Grid item xs={10}>                    
+                                <TextField
+                                    id="filled-multiline-flexible"
+                                    label="Comment"
+                                    multiline
+                                    maxRows={4}
+                                    value={ value }
+                                    variant="filled"
+                                    onChange={ handleChange }
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={1}>                    
+                                <StyledButton size="small" text="Send" icon={ <SendIcon/>} onClick={ handleClick }/>
+                            </Grid>
+                        </Grid> 
+                    </Collapse>
                 </Grid>
             </Grid>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <Box>
-                    <Grid container display="flex" justifyContent="center">
-                        <Grid item xs={9}>                    
-                            <TextField
-                                id="filled-multiline-flexible"
-                                label="Comment"
-                                multiline
-                                maxRows={4}
-                                value={ value }
-                                variant="filled"
-                                onChange={ handleChange }
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={1}>                    
-                            <StyledButton text="Send" icon={ <SendIcon/>} onClick={ handleClick }/>
-                        </Grid>
-                    </Grid> 
-                </Box>
-            </Collapse>
         </Box>
     )
 }
