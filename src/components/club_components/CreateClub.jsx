@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
+import { Box, Container, Grid, Divider } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
+import StyledButton from '../../styled_components/StyledButton';
 
 const CreateClub = ({ onAddClub }) => {
     const [formData, setFormData] = useState({
@@ -36,41 +36,44 @@ const CreateClub = ({ onAddClub }) => {
             .then(newClub => {
                 onAddClub(newClub)
             })
-        navigate('/club')
-    }
+            navigate('/club')
+    } 
 
     return (
-        <Paper
-            component="form"
-            noValidate
-            autoComplete="off"
-        >
-            <Stack>
-                <Typography>Create a New Club</Typography>
-                <TextField
-                    required
-                    id="outlined-name-required"
-                    label="Club Name"
-                    name="club_title"
-                    value={ formData.club_title }
-                    variant='filled'
-                    onChange={ handleChange }
-                />
-                <TextField
-                    required
-                    id="outlined-description-input"
-                    label="Description"
-                    type="text"
-                    name="description"
-                    value={ formData.description }
-                    variant='filled'
-                    onChange={ handleChange }
-                />
-                <Button onClick={ handleClick }>
-                    Create Club
-                </Button>
-            </Stack>
-        </Paper>
+        <Grid container justifyContent="center">
+            <Grid item xs={4} style={{ margin: '50px', padding: '50px'}}>
+                <Box sx={{ width: '100%', bgcolor: 'background.paper', borderRadius:'5px' }} style={{ padding: '50px 0'}}>
+                    <Container>
+                        <Stack spacing={3} justifyContent="center">
+                            <Typography variant="h4" align='center'>Create a New Club</Typography>
+                            <TextField
+                                required
+                                id="outlined-name-required"
+                                label="Club Name"
+                                name="club_title"
+                                value={ formData.club_title }
+                                variant='filled'
+                                onChange={ handleChange }
+                            />
+                            <TextField
+                                required
+                                id="outlined-description-input"
+                                label="Description"
+                                type="text"
+                                name="description"
+                                multiline
+                                value={ formData.description }
+                                variant='filled'
+                                onChange={ handleChange }
+                            />
+                            <StyledButton text="Create Club" onClick={ handleClick }/>
+                            <Divider orientation='horizontal'>Or</Divider>
+                            <StyledButton text="Go to Club List" href='/clublist' />
+                        </Stack>
+                    </Container>
+                </Box>
+            </Grid>
+        </Grid>
     )
 }
 

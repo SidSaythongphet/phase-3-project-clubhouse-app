@@ -15,8 +15,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
 
 const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
     const navigate = useNavigate()
 
     const { first_name, last_name, id } = currentUser
@@ -26,7 +26,7 @@ const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
     };
 
     const handleClose = () => {
-      setAnchorEl(null);
+      setAnchorEl(null)
     };
 
     const navBarLoggedIn = () => {
