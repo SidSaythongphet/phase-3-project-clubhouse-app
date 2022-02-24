@@ -1,4 +1,4 @@
-import { Typography, Divider, Box, Container, Grid } from '@mui/material'
+import { Typography, Divider, Box, Container } from '@mui/material'
 import React from 'react'
 import CreateEvent from './CreateEvent'
 import EventItem from './EventItem'

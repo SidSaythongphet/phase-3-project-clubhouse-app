@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -14,7 +13,6 @@ const UpdateForm = ({ currentUser, onUpdate }) => {
         username: currentUser.username,
         password: currentUser.password
     })
-    const navigate = useNavigate()
     
     const handleChange = (e) => {
         setFormData({

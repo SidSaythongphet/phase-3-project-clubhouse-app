@@ -1,11 +1,11 @@
-import { Container, Grid, Paper, Typography, Box } from '@mui/material'
+import { Container, Grid, Typography, Box } from '@mui/material'
 import React,{ useEffect, useState } from 'react'
 import PostItem from './PostItem'
 import PostForm from './PostForm';
-import { borderRadius } from '@mui/system';
 
 
-const PostContainer = ({ currentUser }) => {
+
+const PostContainer = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
@@ -20,10 +20,6 @@ const PostContainer = ({ currentUser }) => {
     }, [posts])
 
     const handleNewPost = (newPost) => {
-        const post = {
-            
-        }
-
         setPosts([...posts, newPost])
     }
 

@@ -68,7 +68,7 @@ const App = () => {
     fetch(`/users/${currentUser.id}/clubs`)
       .then(resp => resp.json())
       .then(clubData => setUsersClubs(clubData))
-  }, [loggedIn])
+  }, [loggedIn, currentUser.id])
 
     const loginUser = (user) => {
       setCurrentUser(user)
@@ -80,6 +80,7 @@ const App = () => {
       setCurrentUser('')
       setLoggedIn(false)
       localStorage.removeItem('user_id')
+      localStorage.removeItem('club_id')
     }
 
     const handleAddUser = (newUser) => {

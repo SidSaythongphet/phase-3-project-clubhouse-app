@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Paper, Typography, Tooltip, Box } from '@mui/material'
+import { Button, Container, Grid, Typography, Tooltip, Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
@@ -83,7 +83,7 @@ const ClubPage = ({ onJoinClub, currentUser }) => {
                 <EventList club_id={ club.id } events={ events } onAddEvent={ handleAddEvent }/>
             </Grid>
             <Grid item xs={8} container spacing={2} direction='column'>
-                <PostContainer currentUser={ currentUser }/>    
+                <PostContainer/>    
             </Grid>
           </Grid>
         </Grid>
