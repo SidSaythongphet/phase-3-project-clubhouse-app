@@ -4,7 +4,7 @@ import CreateEvent from './CreateEvent'
 import EventItem from './EventItem'
 
 
-const EventList = ({ events, club_id, onAddEvent }) => {
+const EventList = ({ events, onAddEvent }) => {
   const sorted_events = [...events].sort((a,b) => new Date(a.event_date) - new Date(b.event_date)).reverse()
   const renderEvents = sorted_events.map(event => {
     return (
@@ -27,7 +27,7 @@ const EventList = ({ events, club_id, onAddEvent }) => {
       <Box sx={{ width: '100%', bgcolor: 'background.paper', borderRadius:'5px' }} style={{paddingBottom: '20px', marginBottom: '50px'}}>
         <Container>
           <Typography>EventList</Typography>
-          <CreateEvent club_id={ club_id } onAddEvent={ onAddEvent }/>
+          <CreateEvent onAddEvent={ onAddEvent }/>
           { renderEvents }
         </Container>
       </Box>

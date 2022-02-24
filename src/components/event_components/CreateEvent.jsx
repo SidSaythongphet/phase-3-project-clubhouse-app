@@ -8,11 +8,11 @@ import StyledButton from '../../styled_components/StyledButton';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 
-const CreateEvent = ({ club_id, onAddEvent }) => {
+const CreateEvent = ({ onAddEvent }) => {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
         event_title: '',
-        club_id: club_id,
+        club_id: localStorage.club_id,
         event_date: ''
     })
 
@@ -66,7 +66,6 @@ const CreateEvent = ({ club_id, onAddEvent }) => {
                     />
                     <TextField
                         required
-                        label="Date"
                         type="date"
                         name="event_date"
                         value={ formData.event_date }

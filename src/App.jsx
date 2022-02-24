@@ -62,16 +62,11 @@ const App = () => {
           loginUser(user)
         })
       }
-    }, [loggedIn])
+    }, [loggedIn, currentUser])
     
-  useEffect(() =>{
-    fetch(`/users/${currentUser.id}/clubs`)
-      .then(resp => resp.json())
-      .then(clubData => setUsersClubs(clubData))
-  }, [loggedIn, currentUser.id])
-
     const loginUser = (user) => {
       setCurrentUser(user)
+      setUsersClubs(user.clubs)
       setLoggedIn(true)
       localStorage.setItem('user_id', user.id)
     }
@@ -89,10 +84,16 @@ const App = () => {
 
     const handleAddClub = (newClub) => {
       setAllClubs([...allClubs, newClub])
+      setUsersClubs([...usersClubs, newClub])
     }
 
     const handleJoinClub = (newClub) => {
       setUsersClubs([...usersClubs, newClub])
+    }
+
+    const handleQuitClub = (removedClub) => {
+      const updatedUsersClubs = usersClubs.filter(club => club.id !== removedClub.club_id)
+      setUsersClubs(updatedUsersClubs)
     }
 
   return (
@@ -106,7 +107,7 @@ const App = () => {
           <Route path="/login" element={ <Login loginUser={ loginUser } users={ users } currentUser={ currentUser }/> } />
           <Route path="/createclub" element={ <CreateClub currentUser={ currentUser } onAddClub={ handleAddClub } /> } />
           <Route path="/clublist" element={ <ClubList clubs={ allClubs } /> } />
-          <Route path="/club/:club_title" element={ <ClubPage onJoinClub={ handleJoinClub } currentUser={ currentUser } /> } />
+          <Route path="/club/:club_title" element={ <ClubPage onJoinClub={ handleJoinClub } onQuitClub={ handleQuitClub } currentUser={ currentUser } /> } />
           <Route path="/club/events" element={ <EventList /> } />
         </Routes>
       </Router>
