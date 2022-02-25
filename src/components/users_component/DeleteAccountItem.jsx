@@ -37,7 +37,7 @@ const DeleteAccountItem = ({ setLoggedIn }) => {
   
     return (
       <>
-        <StyledButton icon={ <DeleteIcon/> } color='secondary' text='Delete Account' onClick={handleClickOpen}/>
+        <StyledButton icon={ <DeleteIcon/> } size="small" color='secondary' text='Delete Account' onClick={handleClickOpen} sx={{ width: "85%", height: '55px' }}/>
         <Dialog
           open={open}
           onClose={handleClose}

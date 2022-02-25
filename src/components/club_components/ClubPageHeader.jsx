@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Grid, Typography, Tooltip, Box, Stack } from '@mui/material'
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import StyledButton from '../../styled_components/StyledButton';
+import Collapse from '@mui/material/Collapse';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+
 
 const ClubPageHeader = ({ 
     club, 
@@ -14,6 +17,11 @@ const ClubPageHeader = ({
     existingMember 
 }) => {
     const { club_title, description } = club
+    const [expanded, setExpanded] = useState(false)
+
+    const handleExpandClick = () => {
+      setExpanded(!expanded)
+    }
 
     const memberAvatar = members.map(member => {
         return (
@@ -50,6 +58,7 @@ const ClubPageHeader = ({
             .then((removedClub) => {
                 onQuitClub(removedClub)
                 setMembers(members.filter(member => member.id !== currentUser.id))
+                setExpanded(!expanded)
             })
     }
 
@@ -64,14 +73,17 @@ const ClubPageHeader = ({
         >
             <Container>
                 <Grid container justifyContent='flex-start' alignItems='flex-start' sx={{ height: '250px', padding: '15px 0'}}>
-                    <Grid item xs={10} sx={{height: '50%'}}>      
+                    <Grid item xs={9} sx={{height: '50%'}}>      
                         <Stack spacing={2}>
                             <Typography variant='h4' fontWeight='bold'>{ club_title }</Typography>
                             { members.length > 1 ? <Typography>{ members.length } Members</Typography> : <Typography>{ members.length } Member</Typography> }
                         </Stack>          
                     </Grid>
-                    <Grid item xs={2} container justifyContent='right'>                
-                        { !existingMember ? <StyledButton text='Join Club' onClick={ handleJoin }/> : <StyledButton text='Quit Club' onClick={ handleQuit }/> }
+                    <Grid item xs={3} container justifyContent='right' whiteSpace='nowrap'>                
+                        { !existingMember ? <StyledButton text='Join Club' onClick={ handleJoin }/> : <StyledButton icon={<MoreHorizIcon/>} onClick={ handleExpandClick }/> }
+                        <Collapse in={expanded} timeout="auto" orientation='horizontal' unmountOnExit>
+                            <StyledButton text='Quit Club' color='secondary' onClick={ handleQuit }/>
+                        </Collapse>
                     </Grid>
                     <Grid item xs={8} sx={{height: '50%'}}>                
                         <Typography variant='h6' gutterBottom>Description</Typography>

@@ -50,7 +50,7 @@ const CreateEvent = ({ onAddEvent }) => {
 
     return (
         <>
-            <StyledButton icon={ <SettingsIcon/> } onClick={handleClickOpen} text='Create Event'/>
+            <StyledButton icon={ <SettingsIcon/> } onClick={handleClickOpen} text='Create Event' sx={{ width: '100%'}}/>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Create Event</DialogTitle>
                 <DialogContent 

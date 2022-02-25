@@ -17,7 +17,7 @@ const PostItem = ({ post }) => {
                 <Grid item xs={11} container justifyContent={ myPosts ? "right" : "left" }>
                     <Grid item>
                         <Box
-                            style={{
+                            sx={{
                                 margin: '5px 0',
                                 maxWidth: '400px',
                                 borderRadius: '15px', 
@@ -26,7 +26,7 @@ const PostItem = ({ post }) => {
                         >
                             <Typography 
                                 align={ myPosts ? "right" : "left" }
-                                style={{
+                                sx={{
                                     margin: '5px',
                                     padding: '5px',
                                     borderRadius: '15px', 

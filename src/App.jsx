@@ -5,10 +5,9 @@ import Home from "./components/static_components/Home";
 import SignUp from "./components/session_components/SignUp";
 import Login from "./components/session_components/Login";
 import CreateClub from "./components/club_components/CreateClub";
-import ClubList from "./components/club_components/ClubList";
+import ClubListContainer from "./components/club_components/ClubListContainer";
 import ClubPage from "./components/club_components/ClubPage";
-import EventList from "./components/event_components/EventList";
-import UserHomePage from "./components/session_components/UserHomePage";
+import UserHomePage from "./components/users_component/UserHomePage";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -106,9 +105,9 @@ const App = () => {
           <Route path="/signup" element={ <SignUp loginUser={ loginUser } users={ users } onAddUser={ handleAddUser} /> } />
           <Route path="/login" element={ <Login loginUser={ loginUser } users={ users } currentUser={ currentUser }/> } />
           <Route path="/createclub" element={ <CreateClub currentUser={ currentUser } onAddClub={ handleAddClub } /> } />
-          <Route path="/clublist" element={ <ClubList clubs={ allClubs } /> } />
+          <Route path="/clublist" element={ <ClubListContainer clubs={ allClubs } usersClubs={ usersClubs } /> } />
           <Route path="/club/:club_title" element={ <ClubPage onJoinClub={ handleJoinClub } onQuitClub={ handleQuitClub } currentUser={ currentUser } /> } />
-          <Route path="/club/events" element={ <EventList /> } />
+          {/* <Route path="/club/events" element={ <EventContainer /> } /> */}
         </Routes>
       </Router>
     </ThemeProvider>

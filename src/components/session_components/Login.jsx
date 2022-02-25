@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Button } from '@mui/material';
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import { Box, Container, Grid } from '@mui/material';
 import StyledButton from '../../styled_components/StyledButton';
-
+import Alert from '@mui/material/Alert';
 
 const Login = ({ loginUser, users }) => {
+    const [showAlert, setShowAlert] = useState(false)
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -23,13 +22,16 @@ const Login = ({ loginUser, users }) => {
     }
 
     const handleClick = (e) => {
-      e.preventDefault()
-      const user = users.find(user => user.username.toLowerCase() === formData.username.toLowerCase())
-      if (user && user.password === formData.password) {
+        e.preventDefault()
+        const user = users.find(user => user.username.toLowerCase() === formData.username.toLowerCase())
+        if (user && user.password === formData.password) {
             loginUser(user)
             navigate(`/home/${user.last_name}_${user.id}`)
         } else {
-            alert('Invalid credentials')
+            setShowAlert(!showAlert)
+            setTimeout(() => {
+                setShowAlert(showAlert => !showAlert)
+            }, 5000)
         }
     }
 
@@ -84,6 +86,7 @@ const Login = ({ loginUser, users }) => {
                         </Grid>
                     </Container>
                 </Box>
+                { showAlert ? <Alert severity="error">Invalid Username/Password</Alert> : null }
             </Grid>
         </Grid>
     )

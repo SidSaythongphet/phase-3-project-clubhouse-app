@@ -1,6 +1,6 @@
 import { Container, Grid, Typography, } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import EventList from '../event_components/EventList';
+import EventContainer from '../event_components/EventContainer';
 import PostContainer from '../post_component/PostContainer';
 import ClubPageHeader from './ClubPageHeader';
 
@@ -44,14 +44,14 @@ const ClubPage = ({ onJoinClub, onQuitClub, currentUser }) => {
             ?
             <Grid item xs={12} container spacing={3}>
               <Grid item xs={4}>
-                <EventList events={ events } onAddEvent={ handleAddEvent }/>
+                <EventContainer events={ events } onAddEvent={ handleAddEvent }/>
               </Grid>
               <Grid item xs={8} container spacing={2} direction='column'>
                 <PostContainer/>    
               </Grid>
             </Grid>
             :
-            <Grid item xs={12} container  justifyContent= 'center' alignContent='center' style={{height:'500px'}}>
+            <Grid item xs={12} container  justifyContent= 'center' alignContent='center' sx={{height:'500px'}}>
               <Typography variant='h4'>Join the club!</Typography>
             </Grid>
           }

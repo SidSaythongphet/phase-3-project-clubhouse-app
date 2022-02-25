@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import StyledButton from '../../styled_components/StyledButton';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import StyledButton from '../../styled_components/StyledButton';
+import Grid from '@mui/material/Grid';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 const UpdateForm = ({ currentUser, onUpdate }) => {
@@ -48,7 +49,9 @@ const UpdateForm = ({ currentUser, onUpdate }) => {
   
     return (
         <>
-            <StyledButton icon={ <SettingsIcon/> } onClick={handleClickOpen} text='Settings'/>
+            <Grid item xs={6} align="right">
+                <StyledButton icon={ <SettingsIcon/> } size="small" onClick={handleClickOpen} text='Settings' sx={{ width: "85%", height: '55px' }}/>
+            </Grid>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit Account</DialogTitle>
                 <DialogContent 

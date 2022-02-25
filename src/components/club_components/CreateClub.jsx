@@ -35,8 +35,9 @@ const CreateClub = ({ onAddClub }) => {
             .then(resp => resp.json())
             .then(newClub => {
                 onAddClub(newClub)
+                localStorage.setItem('club_id',newClub.id)
+                navigate(`/club/${newClub.club_title}`)
             })
-            navigate('/club')
     } 
 
     return (

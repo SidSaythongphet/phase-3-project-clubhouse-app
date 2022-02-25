@@ -53,12 +53,11 @@ const NavBar = ({ loggedIn, currentUser, logoutUser }) => {
                     <MenuItem onClick={handleClose}><Link to={ "/home/" + last_name + "_" + id  } style={{ textDecoration: "none" }}>Home</Link></MenuItem>
                     <MenuItem onClick={handleClose}><Link to="/createclub" style={{ textDecoration: "none" }}>Create Club</Link></MenuItem>
                     <MenuItem onClick={handleClose}><Link to="/clublist" style={{ textDecoration: "none" }}>Club List</Link></MenuItem>
-                    <MenuItem onClick={handleClose}><Link to="/club/events" style={{ textDecoration: "none" }}>Club Events</Link></MenuItem>
                 </Menu>
                 <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
                     Club House
                 </Typography>
-                <StyledButton href="/" size='small' icon={ <LogoutIcon/> } text='Logout' onClick={ () => logoutUser() } />
+                <StyledButton href="/" size='small' color='secondary' icon={ <LogoutIcon/> } text='Logout' onClick={ () => logoutUser() } />
                 <Avatar onClick={ () => navigate(`/home/${last_name}_${id}`) } >{ first_name[0] + last_name[0]}</Avatar>
             </>
         )

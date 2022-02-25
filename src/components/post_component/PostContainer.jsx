@@ -44,7 +44,7 @@ const PostContainer = () => {
         <Grid item >
             <Box sx={{ width: '100%', bgcolor: 'background.paper', borderRadius:'5px' }} style={{paddingBottom: '20px', marginBottom: '50px'}}>
                 <Container>
-                    <Typography>PostContainer</Typography>
+                    <Typography variant="h6" align="center">Message Board</Typography>
                     { renderPosts }
                 </Container>
             </Box>

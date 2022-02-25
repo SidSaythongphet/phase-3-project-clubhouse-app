@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 
-const StyledButton = ({ text, icon, color, size, href, onClick, disabled }) => {
+const StyledButton = ({ text, icon, color, size, href, onClick, disabled, sx }) => {
     return (
         <Button 
             variant="contained"
@@ -12,9 +12,11 @@ const StyledButton = ({ text, icon, color, size, href, onClick, disabled }) => {
             href={ href }
             style={{
                 margin: '10px 5px',
-                borderRadius: '25px'
+                borderRadius: '25px',
             }}
             disabled={ disabled }
+            sx={ sx }
+            
         >
             { text }
         </Button>
