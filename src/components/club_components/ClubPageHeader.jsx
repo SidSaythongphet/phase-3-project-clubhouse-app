@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Container, Grid, Typography, Tooltip, Box, Stack } from '@mui/material'
+import { Grid, Typography, Tooltip, Stack } from '@mui/material'
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import StyledButton from '../../styled_components/StyledButton';
 import Collapse from '@mui/material/Collapse';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import StyledBox from '../../styled_components/StyledBox';
 
 
 const ClubPageHeader = ({ 
@@ -63,40 +64,31 @@ const ClubPageHeader = ({
     }
 
     return (
-        <Box 
-            sx={{ 
-                width: '100%', 
-                bgcolor: 'background.paper', 
-                borderRadius:'5px',
-                minHeight: '250px'
-            }}
-        >
-            <Container>
-                <Grid container justifyContent='flex-start' alignItems='flex-start' sx={{ height: '250px', padding: '15px 0'}}>
-                    <Grid item xs={9} sx={{height: '50%'}}>      
-                        <Stack spacing={2}>
-                            <Typography variant='h4' fontWeight='bold'>{ club_title }</Typography>
-                            { members.length > 1 ? <Typography>{ members.length } Members</Typography> : <Typography>{ members.length } Member</Typography> }
-                        </Stack>          
-                    </Grid>
-                    <Grid item xs={3} container justifyContent='right' whiteSpace='nowrap'>                
-                        { !existingMember ? <StyledButton text='Join Club' onClick={ handleJoin }/> : <StyledButton icon={<MoreHorizIcon/>} onClick={ handleExpandClick }/> }
-                        <Collapse in={expanded} timeout="auto" orientation='horizontal' unmountOnExit>
-                            <StyledButton text='Quit Club' color='secondary' onClick={ handleQuit }/>
-                        </Collapse>
-                    </Grid>
-                    <Grid item xs={8} sx={{height: '50%'}}>                
-                        <Typography variant='h6' gutterBottom>Description</Typography>
-                        <Typography>{ description }</Typography>
-                    </Grid>
-                    <Grid item xs={4} alignSelf='flex-end'>                
-                        <AvatarGroup max={10}>
-                        { memberAvatar }
-                        </AvatarGroup>
-                    </Grid>
+        <StyledBox>
+            <Grid container justifyContent='flex-start' alignItems='flex-start' sx={{ height: '350px', padding: '15px 0'}}>
+                <Grid item xs={9} sx={{height: '50%'}}>      
+                    <Stack spacing={2}>
+                        <Typography variant='h4' fontWeight='bold'>{ club_title }</Typography>
+                        { members.length > 1 ? <Typography>{ members.length } Members</Typography> : <Typography>{ members.length } Member</Typography> }
+                    </Stack>          
                 </Grid>
-            </Container>
-        </Box>
+                <Grid item xs={3} container justifyContent='right' whiteSpace='nowrap'>                
+                    { !existingMember ? <StyledButton text='Join Club' onClick={ handleJoin }/> : <StyledButton icon={<MoreHorizIcon/>} onClick={ handleExpandClick }/> }
+                    <Collapse in={expanded} timeout="auto" orientation='horizontal' unmountOnExit>
+                        <StyledButton text='Quit Club' color='secondary' onClick={ handleQuit }/>
+                    </Collapse>
+                </Grid>
+                <Grid item xs={8} sx={{height: '50%'}}>                
+                    <Typography variant='h6' gutterBottom>Description</Typography>
+                    <Typography>{ description }</Typography>
+                </Grid>
+                <Grid item xs={4} alignSelf='flex-end'>                
+                    <AvatarGroup max={10}>
+                    { memberAvatar }
+                    </AvatarGroup>
+                </Grid>
+            </Grid>
+        </StyledBox>
     )
 }
 

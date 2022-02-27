@@ -1,7 +1,8 @@
-import { Container, Grid, Typography, Box } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import React,{ useEffect, useState } from 'react'
 import PostItem from './PostItem'
 import PostForm from './PostForm';
+import StyledBox from '../../styled_components/StyledBox';
 
 
 
@@ -35,19 +36,15 @@ const PostContainer = () => {
   return (
     <>
         <Grid item>
-            <Box sx={{ width: '100%', bgcolor: 'background.paper', borderRadius:'5px' }}>
-                <Container>
-                    <PostForm handleNewPost={ handleNewPost }/>
-                </Container>
-            </Box>
+            <StyledBox minHeight='50px'>
+                <PostForm handleNewPost={ handleNewPost }/>
+            </StyledBox>
         </Grid>
         <Grid item >
-            <Box sx={{ width: '100%', bgcolor: 'background.paper', borderRadius:'5px' }} style={{paddingBottom: '20px', marginBottom: '50px'}}>
-                <Container>
-                    <Typography variant="h6" align="center">Message Board</Typography>
-                    { renderPosts }
-                </Container>
-            </Box>
+            <StyledBox>
+                <Typography variant="h6" align="center">Message Board</Typography>
+                { renderPosts }
+            </StyledBox>
         </Grid>
     </>
   )

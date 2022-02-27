@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import StyledButton from '../../styled_components/StyledButton';
 import { Grid } from '@mui/material';
@@ -43,34 +42,32 @@ const PostForm = ({ handleNewPost }) => {
     
 
     return (
-        <Box style={{padding: '10px'}} >
-            <Grid container spacing={2} justifyContent="space-between">
-                <Grid item xs={1}>                    
-                    <StyledButton size="small" text={ !expanded ? "Comment" : "Close"} icon={ <ExpandMoreIcon /> } onClick={handleExpandClick} />
-                </Grid>
-                <Grid item xs={10}>                    
-                    <Collapse in={expanded} timeout="auto" unmountOnExit>
-                        <Grid container display="flex" justifyContent="flex-start" alignItems="flex-end">
-                            <Grid item xs={10}>                    
-                                <TextField
-                                    id="filled-multiline-flexible"
-                                    label="Comment"
-                                    multiline
-                                    maxRows={4}
-                                    value={ value }
-                                    variant="filled"
-                                    onChange={ handleChange }
-                                    fullWidth
-                                />
-                            </Grid>
-                            <Grid item xs={1}>                    
-                                <StyledButton size="small" text="Send" icon={ <SendIcon/>} onClick={ handleClick }/>
-                            </Grid>
-                        </Grid> 
-                    </Collapse>
-                </Grid>
+        <Grid container spacing={2} justifyContent="space-between">
+            <Grid item xs={1}>                    
+                <StyledButton size="small" text={ !expanded ? "Comment" : "Close"} icon={ <ExpandMoreIcon /> } onClick={handleExpandClick} />
             </Grid>
-        </Box>
+            <Grid item xs={10}>                    
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <Grid container display="flex" justifyContent="flex-start" alignItems="flex-end">
+                        <Grid item xs={10}>                    
+                            <TextField
+                                id="filled-multiline-flexible"
+                                label="Comment"
+                                multiline
+                                maxRows={4}
+                                value={ value }
+                                variant="filled"
+                                onChange={ handleChange }
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={1}>                    
+                            <StyledButton size="small" text="Send" icon={ <SendIcon/>} onClick={ handleClick }/>
+                        </Grid>
+                    </Grid> 
+                </Collapse>
+            </Grid>
+        </Grid>
     )
 }
 

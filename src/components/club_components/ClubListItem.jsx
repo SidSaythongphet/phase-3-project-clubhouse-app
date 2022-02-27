@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import GroupsIcon from '@mui/icons-material/Groups';
 
 const ClubListItem = ({ club }) => {
+    const { id, club_title, description } = club
     return (
         <Box 
             sx={{
@@ -14,14 +15,14 @@ const ClubListItem = ({ club }) => {
                 background: 'linear-gradient(200deg, rgba(2,0,36,1) 0%, rgba(9,79,121,1) 50%, rgba(58,124,138,1) 100%)'
             }}
         >
-            <Grid container display='flex' justifyContent='center' alignItems='center' sx={{ height: '100%'}}>
+            <Grid container justifyContent='center' alignItems='center' sx={{ height: '100%'}}>
                 <Grid item xs={12} md={1}>
                     <GroupsIcon fontSize="large" sx={{ color: 'whitesmoke', paddingLeft: '15px' }}/>
                 </Grid>
                 <Grid item xs={12} md={4}>
-                    <Typography onClick={ () => localStorage.setItem('club_id', club.id) }>
+                    <Typography onClick={ () => localStorage.setItem('club_id', id) }>
                         <Link 
-                            to={ '/club/' + club.club_title } 
+                            to={ '/club/' + club_title.replace(/ /g, '').toLowerCase() } 
                             style={{ 
                                 margin: '5px',
                                 padding: '5px',
@@ -30,7 +31,7 @@ const ClubListItem = ({ club }) => {
                                 color: 'whitesmoke', 
                             }}
                         >
-                            { club.club_title }
+                            { club_title }
                         </Link>
                     </Typography>
                 </Grid>
@@ -44,7 +45,7 @@ const ClubListItem = ({ club }) => {
                             color: 'whitesmoke', 
                         }}                        
                     >
-                        { club.description }
+                        { description }
                     </Typography>
                 </Grid>
             </Grid>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { Avatar } from '@mui/material';
 import UpdateForm from './UpdateForm';
 import DeleteAccountItem from './DeleteAccountItem';
+import StyledBox from '../../styled_components/StyledBox';
 
 const UserAccountContainer = ({ currentUser, setLoggedIn }) => {
     const { first_name, last_name, username } = currentUser
@@ -13,17 +14,8 @@ const UserAccountContainer = ({ currentUser, setLoggedIn }) => {
     }
 
     return (
-        <Box 
-            sx={{ 
-                height: '350px',
-                maxWidth: '350px',
-                bgcolor: 'background.paper', 
-                borderRadius:'15px', 
-                padding: '20px 0 10px',
-                marginBottom: '50px' 
-            }} 
-        >
-            <Grid container spacing={3} sx={{ height: '100%' }}>
+        <StyledBox>
+            <Grid container spacing={3} sx={{ height: '350px' }} alignContent='center'>
                 <Grid item xs={12}>
                     <Avatar
                         alt={ first_name + last_name }
@@ -53,7 +45,7 @@ const UserAccountContainer = ({ currentUser, setLoggedIn }) => {
                     </Grid>
                 </Grid>
             </Grid>
-        </Box>
+        </StyledBox>
     )
 }
 

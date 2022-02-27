@@ -1,6 +1,7 @@
-import { Typography, Divider, Box, Container, Grid } from '@mui/material'
-import { format, compareAsc } from 'date-fns'
 import React from 'react'
+import { Typography, Divider, Grid } from '@mui/material'
+import { format, compareAsc } from 'date-fns'
+import StyledBox from '../../styled_components/StyledBox'
 import CreateEvent from './CreateEvent'
 import EventItem from './EventItem'
 
@@ -22,31 +23,28 @@ const EventContainer = ({ events, onAddEvent }) => {
       <EventItem key={ event.id } event={ event } />
     )
   })
- console.log(renderPastEvents)
 
   return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper', borderRadius:'5px' }} style={{paddingBottom: '20px', marginBottom: '50px'}}>
-      <Container>
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant="h6" align="center">Events</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <CreateEvent onAddEvent={ onAddEvent }/>
-          </Grid>
-          <Grid container>
-            <Grid item xs={12}>
-              { renderUpcomingEvents.length > 0 ? <Divider>Upcoming</Divider> : null }
-            </Grid>
-            { renderUpcomingEvents }
-            <Grid item xs={12}>
-              { renderPastEvents.length > 0 ? <Divider>Past</Divider> : null }
-            </Grid>
-            { renderPastEvents }
-          </Grid>
+    <StyledBox>
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography variant="h6" align="center">Events</Typography>
         </Grid>
-      </Container>
-    </Box>  
+        <Grid item xs={12}>
+          <CreateEvent onAddEvent={ onAddEvent }/>
+        </Grid>
+        <Grid item container>
+          <Grid item xs={12}>
+            { renderUpcomingEvents.length > 0 ? <Divider>Upcoming</Divider> : null }
+          </Grid>
+          { renderUpcomingEvents }
+          <Grid item xs={12}>
+            { renderPastEvents.length > 0 ? <Divider>Past</Divider> : null }
+          </Grid>
+          { renderPastEvents }
+        </Grid>
+      </Grid>
+    </StyledBox>
   )
 }
 

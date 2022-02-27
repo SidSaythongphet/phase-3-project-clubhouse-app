@@ -1,9 +1,8 @@
-import { Container, Grid, Typography, } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import { Container, Grid, Typography, } from '@mui/material'
 import EventContainer from '../event_components/EventContainer';
 import PostContainer from '../post_component/PostContainer';
 import ClubPageHeader from './ClubPageHeader';
-
 
 const ClubPage = ({ onJoinClub, onQuitClub, currentUser }) => {
   const [club, setClubPage] = useState([])
@@ -30,7 +29,7 @@ const ClubPage = ({ onJoinClub, onQuitClub, currentUser }) => {
   }
 
   return (
-    <Container>
+    <Container >
       {!club
         ?
         <Typography>Loading</Typography>

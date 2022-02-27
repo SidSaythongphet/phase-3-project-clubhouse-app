@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { Box, Container, Grid } from '@mui/material';
+import { Divider, Grid, Stack } from '@mui/material';
 import StyledButton from '../../styled_components/StyledButton';
 import Alert from '@mui/material/Alert';
+import StyledBox from '../../styled_components/StyledBox';
 
 const Login = ({ loginUser, users }) => {
     const [showAlert, setShowAlert] = useState(false)
@@ -37,55 +38,43 @@ const Login = ({ loginUser, users }) => {
 
     return (
         <Grid container justifyContent="center">
-            <Grid item xs={4} style={{ margin: '50px', padding: '50px'}}>
-                <Box 
-                    component="form"
-                    noValidate
-                    autoComplete="off"
-                    sx={{ 
-                        width: '100%', 
-                        bgcolor: 'background.paper', 
-                        borderRadius:'5px',
-                        padding: '50px 0'
-                    }} 
-                >
-                    <Container>
-                        <Grid container spacing={3} justifyContent="center">
-                            <Grid item xs={12}>
-                                <Typography variant="h4" align='center'>Login</Typography>
-                            </Grid>
-                            <Grid item xs={10}>
-                                <TextField
-                                    required
-                                    id="outlined-username-required"
-                                    label="Username"
-                                    name="username"
-                                    value={ formData.username }
-                                    variant='filled'
-                                    fullWidth
-                                    color='primary'
-                                    onChange={ handleChange }
-                                />
-                            </Grid>
-                            <Grid item xs={10}>
-                                <TextField
-                                    required
-                                    id="outlined-password-input"
-                                    label="Password"
-                                    type="password"
-                                    name="password"
-                                    value={ formData.password }
-                                    variant="filled"
-                                    fullWidth
-                                    onChange={ handleChange }
-                                />
-                            </Grid>
-                            <Grid item xs={12} align='center'>
-                                <StyledButton text="Login" onClick={ handleClick }/>
-                            </Grid>
-                        </Grid>
-                    </Container>
-                </Box>
+            <Grid item xs={11} sm={10} md={6} lg={5} xl={4}>
+                <StyledBox>
+                    <Stack
+                        direction="column"
+                        justifyContent="space-evenly"
+                        alignItems="stretch"
+                        spacing={2}
+                        minHeight="500px"
+                    >
+                        <Typography variant="h4" align='center'>Login</Typography>
+                        <Divider orientation='horizontal'/>
+                            <TextField
+                                required
+                                id="outlined-username-required"
+                                label="Username"
+                                name="username"
+                                value={ formData.username }
+                                variant='filled'
+                                fullWidth
+                                color='primary'
+                                onChange={ handleChange }
+                            />
+                            <TextField
+                                required
+                                id="outlined-password-input"
+                                label="Password"
+                                type="password"
+                                name="password"
+                                value={ formData.password }
+                                variant="filled"
+                                fullWidth
+                                onChange={ handleChange }
+                            />
+                        <Divider orientation='horizontal'/>
+                        <StyledButton text="Login" onClick={ handleClick }/>
+                    </Stack>
+                </StyledBox>
                 { showAlert ? <Alert severity="error">Invalid Username/Password</Alert> : null }
             </Grid>
         </Grid>
